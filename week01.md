@@ -8,6 +8,7 @@ In Week 1, I created a new GNS3 project named `GNS3-Intro-12312149`. I added one
 Before starting the node, I configured a static IP address through the `/etc/network/interfaces` file. After starting the host, I opened the web console and used the appropriate Linux command to verify that the IP address had been successfully assigned to the `eth0` interface.
 
 ## Configuration Used
+```bash
 auto eth0
 iface eth0 inet static
    address 10.10.1.1
