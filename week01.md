@@ -15,5 +15,8 @@ iface eth0 inet static
    netmask 255.255.255.0
    up sysctl net.ipv4.ip_forward=0
 ```
+## Network 
+![Network](./images/GNS3-Intro-12312149-ipaddress.png)
+
 ## IP Address
-![ipaddress](./images/GNS3-Intro-12312149-ipaddress.png)
+![ipaddress](./images/GNS3-Intro-12312149-network.png)
