@@ -20,3 +20,13 @@ iface eth0 inet static
 
 ## IP Address
 ![ipaddress](./images/GNS3-Intro-12312149-network.png)
+
+## Testing Result
+The output of the ip address show command confirmed that the host was successfully configured with the static IPv4 address 10.10.1.1/24 on the eth0 interface. This verified that the network configuration was correct and active after the node was started.
+
+## Key Concepts Learned
+This tutorial introduced the basic GNS3 environment and showed how a Linux host can be configured with a static IP address before startup. I learned that the /etc/network/interfaces file is used to define persistent network settings and that the ip address show command can be used to confirm whether the configuration has been applied correctly.
+I also learned that IP forwarding should be disabled on a normal host device when it is not intended to act as a router.
+
+## Reflection
+This activity provided a useful introduction to the tools and configuration methods that will be used throughout the unit. It helped me understand the importance of accurate IP addressing and proper verification of network settings. By completing this task, I became more confident in using GNS3 and basic Linux networking commands, which will support more advanced tasks in later weeks.
