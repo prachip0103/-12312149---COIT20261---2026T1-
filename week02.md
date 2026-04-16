@@ -1,3 +1,5 @@
+### COIT20261 Week 02
+
 ## Task 1: Setting Static IP Addresses
 ## Aim
 The aim of this task was to configure static IP addresses on Linux hosts using three different methods in GNS3. These methods included using the GNS3 Configure menu, editing the /etc/network/interfaces file, and using the ip address add command.
