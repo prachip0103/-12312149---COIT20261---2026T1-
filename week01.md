@@ -16,7 +16,7 @@ iface eth0 inet static
    up sysctl net.ipv4.ip_forward=0
 ```
 ## Network 
-![Network](./images/GNS3-Intro-12312149-ipaddress.png)
+![Network](./images/week01/GNS3-Intro-12312149-ipaddress.png)
 
 ## IP Address
 ![ipaddress](./images/GNS3-Intro-12312149-network.png)
