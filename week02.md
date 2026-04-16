@@ -68,6 +68,7 @@ This screenshot shows the result of pinging a wrong IP address in the same netwo
 Ping with Options
 A final ping test was performed using non-default options to control the number of packets, interval, and packet size.
 3)	Ping using non-default options.
+
 ![error](./images/week02/Ping-Basics-12312149-options.png)
 
 This screenshot shows a ping command using -c, -i, and -s options. These options were used to limit the packet count, change the time interval, and set a different packet size.
