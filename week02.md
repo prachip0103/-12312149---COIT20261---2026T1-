@@ -54,12 +54,12 @@ Basic Ping Test
 A normal ping test was carried out from one host to another host in the same LAN. This verified that the destination host was reachable and allowed observation of the round-trip time.
 
 1)	Successful ping between two hosts in the LAN.
-![ping](./ images/week02/Ping-Basics-12312149-simple.png)
+![ping](./images/week02/Ping-Basics-12312149-simple.png)
 
 This screenshot shows a successful ping command between two hosts in the same network. The reply messages confirm that the destination host is reachable and communication is working correctly.
 
 2)	Ping to a Wrong IP Address
-![error](./ images/week02/Ping-Basics-12312149-error.png)
+![error](./images/week02/Ping-Basics-12312149-error.png)
 
 A ping was then sent to an unused IP address in the same network. No reply was received, and the result showed packet loss, demonstrating that the destination did not exist.
  Ping to an invalid IP address showing packet loss.:
@@ -68,7 +68,7 @@ This screenshot shows the result of pinging a wrong IP address in the same netwo
 Ping with Options
 A final ping test was performed using non-default options to control the number of packets, interval, and packet size.
 3)	Ping using non-default options.
-![error](./ images/week02/Ping-Basics-12312149-options.png)
+![error](./images/week02/Ping-Basics-12312149-options.png)
 
 This screenshot shows a ping command using -c, -i, and -s options. These options were used to limit the packet count, change the time interval, and set a different packet size.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
