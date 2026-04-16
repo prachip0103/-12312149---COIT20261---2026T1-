@@ -11,4 +11,6 @@ Host3: 10.10.1.3/24
 Host4: 10.10.1.4/24
 
 1) GNS3 topology showing four Linux hosts connected to one Ethernet switch.
+![Network](./images/GNS3-Intro-12312149-ipaddress.png)
+
 This screenshot shows the complete network topology created in GNS3. It contains four Linux hosts connected to a single Ethernet switch in the same LAN.
