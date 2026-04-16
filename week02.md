@@ -71,6 +71,7 @@ A final ping test was performed using non-default options to control the number 
 ![error](./images/week02/Ping-Basics-12312149-options.png)
 
 This screenshot shows a ping command using -c, -i, and -s options. These options were used to limit the packet count, change the time interval, and set a different packet size.
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Task 2 Conclusion
 This task showed how the ping command can be used to test host reachability, identify packet loss, and measure delay. It also demonstrated how different options can be used to modify the operation of the command.
