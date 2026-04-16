@@ -16,10 +16,10 @@ iface eth0 inet static
    up sysctl net.ipv4.ip_forward=0
 ```
 ## Network 
-![Network](./images/week01/GNS3-Intro-12312149-ipaddress.png)
-
+![Network](./images/GNS3-Intro-12312149-network.png)
 ## IP Address
-![ipaddress](./images/GNS3-Intro-12312149-network.png)
+![IP address](./images/week01/GNS3-Intro-12312149-ipaddress.png)
+
 
 ## Testing Result
 The output of the ip address show command confirmed that the host was successfully configured with the static IPv4 address 10.10.1.1/24 on the eth0 interface. This verified that the network configuration was correct and active after the node was started.
