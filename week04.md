@@ -13,15 +13,23 @@
 - This network consists of three Linux hosts, one Linux router, and one Ethernet switch. Host1 and Host2 are connected to the switch along with the router’s first interface (eth0), forming the first subnet (10.1.1.0/24). Host3 is connected directly to the router’s second interface (eth1), forming the second subnet (10.1.2.0/24). This setup enables communication between two different subnets through the router.
 
 ## IP Configuration and Routing Tables
-IP Configuration and Routing Tables
+
 ![Route host1](./images/week04/view_route_host1.png)
+
 ![ipForward1](./images/week04/ipForward_host1.png)
+
 ![Route host2](./images/week04/view_route_host2.png)
+
 ![ipForward2](./images/week04/ipForward_host2.png)
+
 ![Route host3](./images/week04/view_route_host3.png)
+
 ![ipForward3](./images/week04/ipForward_host3.png)
+
 ![Route Router](./images/week04/ip_route_router.png)
+
 ![Ipforward Router](./images/week04/ipForward_router.png)
+
 
 The IP configuration shows that each host is assigned a static IP address within its respective subnet. The router has two interfaces configured for both subnets. Forwarding is disabled on all hosts (ip_forward = 0) and enabled on the router (ip_forward = 1). Each host contains a default route pointing to the router, while the router maintains routes for both connected subnets.
 
