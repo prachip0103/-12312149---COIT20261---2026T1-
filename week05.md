@@ -10,6 +10,7 @@ Four Linux hosts were connected to an OpenvSwitch device using ports eth1 to eth
 
 ----------------Filename: Vlan-Basics-12312149-network.png 
 
+
 Network topology showing four hosts connected to the switch.
 
  ## IP Address Configuration
