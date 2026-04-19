@@ -63,6 +63,3 @@ Inter-VLAN routing was successfully implemented. All hosts across VLANs communic
 
 This lab demonstrated VLAN segmentation and inter-VLAN routing. VLANs isolated traffic, and the router enabled communication between VLANs.
 
----
-
-**Note:** Insert all screenshots at the indicated positions before exporting to PDF.
