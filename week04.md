@@ -45,46 +45,57 @@ In this task, a network with two subnets was successfully created and configured
 The aim of this task is to observe how dynamic routing protocols such as OSPF operate and how they automatically adjust to network changes such as link failures.
 
 ## Network Overview
-OSPF Network Topology
-----------------
 
-The OSPF network consists of two hosts and four FRR routers interconnected with multiple paths. The network is pre-configured to use OSPF for dynamic routing, allowing routers to automatically exchange routing information and determine optimal paths.
+![Ipforward Router](./images/week04/OSPF-Basics-12312149-network.png)
+
+The network topology consists of two end hosts (Host1 and Host2) and four routers (FRR1, FRR2, FRR3, and FRR4). The routers are interconnected in such a way that there are two possible paths between the hosts. The top path is via FRR2, while the bottom path is via FRR3. Each link is assigned a separate subnet ranging from 10.10.1.0/24 to 10.10.6.0/24. Two NETem nodes are placed between FRR2–FRR4 and FRR3–FRR4 to simulate link behaviour and failures. This topology is used to demonstrate dynamic routing using OSPF.
+OSPF Network Topology.
 
 ## OSPF Neighbour Information
-----------------------
+![ospf neighbor](./images/week04/task2_ospf_neighbor.png)
 
-This output displays the neighbouring routers connected to FRR1. It confirms that OSPF adjacency has been successfully established, allowing routers to exchange routing information dynamically.
+The output of the command show ip ospf neighbor on FRR1 displays the neighbouring routers participating in OSPF. FRR1 has two neighbours:
 
-## Routing Tables
--  Routing Table of Router 1
-  -----------------------
-This routing table shows the networks known to Router 1, including both directly connected and OSPF-learned routes. It also indicates the next hop required to reach each destination network.
+FRR2 with IP address 10.10.2.2
+FRR3 with IP address 10.10.3.3
 
-- Routing Table of Router 2
-----------------------------------
+Both neighbours are in the Full/DR state, indicating that OSPF adjacency has been successfully established and routing information is being exchanged between routers. This confirms that the OSPF protocol is functioning correctly in the network.
 
-This routing table demonstrates how another router in the network maintains its routes and selects the best path to reach various subnets using OSPF.
+## OSPF Routing Table
+The output of the command show ip ospf route shows the routes learned dynamically through OSPF. FRR1 has knowledge of all network subnets, including:
 
-Routing Summary Table
-Router	Destination Network	Next Node
-FRR1	Host2 subnet	FRR2 / FRR3
-FRR2	Host2 subnet	FRR4
-FRR3	Host2 subnet	FRR4
-FRR4	Host1 subnet	FRR2 / FRR3
+Directly connected networks: 10.10.1.0/24, 10.10.2.0/24, and 10.10.3.0/24
+Remote networks learned via OSPF:
+10.10.4.0/24 via FRR2
+10.10.5.0/24 via FRR3
+10.10.6.0/24 via FRR2
 
-(Update this table based on your actual outputs)
+This demonstrates that OSPF is automatically sharing routing information between routers and building a complete network view.
+![ospf neighbor](./images/week04/Task2_ip_ospf_route.png)
 
-Path Analysis Using Traceroute
-- Traceroute Before Link Failure
-------------------------
+## Linux Routing Table
+![IP_ROUTE](./images/week04/task2_ip_route.png)
 
-This output shows the original path taken by packets from Host1 to Host2. The traceroute command reveals the sequence of routers used in the communication path.
+The output of the command show ip route displays the routing table used by the router for packet forwarding. The table includes:
 
-- Traceroute After Link Failure
-------------------------------------
+Routes marked with C (Connected), representing directly connected networks
+Routes marked with O (OSPF), representing dynamically learned routes
 
-After disconnecting a link, OSPF dynamically recalculates the route and selects an alternative path. This traceroute output confirms that traffic is successfully rerouted through a different set of routers.
+For example:
 
+Traffic to 10.10.6.0/24 is forwarded via 10.10.2.2 (FRR2)
+Traffic to 10.10.5.0/24 is forwarded via 10.10.3.3 (FRR3)
+
+This confirms that OSPF is actively determining the best path for data transmission.
+## Traceroute
+![TRACEROUTE](./images/week04/task2_traceroute.png)
+
+The traceroute command traceroute 10.10.6.2 is used to determine the path taken by packets from Host1 to Host2. The output shows that packets travel through:
+
+First hop: 10.10.2.2 (FRR2)
+Second hop: 10.10.4.4 (FRR4)
+
+This indicates that the top path (FRR1 → FRR2 → FRR4) is currently being used by OSPF as the preferred route. The traceroute also displays round-trip time (RTT) values for each hop, providing insight into network performance.
 ## Summary of Task 2
 
 In this task, the behaviour of OSPF was observed in a pre-configured network. Routing information was analysed using FRR commands, and the impact of a link failure was tested. OSPF successfully adapted to the network change by recalculating routes and maintaining connectivity.
