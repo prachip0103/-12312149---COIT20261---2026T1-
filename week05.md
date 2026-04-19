@@ -1,137 +1,192 @@
+# Task 1: Setup VLANs on Switch
 
-## COIT20261 – Week 05 Tutorial
-VLAN Configuration using OpenvSwitch
+## Aim
 
-## Task 1: Setup VLANs on Switch
-The aim of this task is to configure VLANs on a managed switch using OpenvSwitch and observe how VLANs affect communication between hosts.
+To configure VLANs on an OpenvSwitch and verify communication behavior between hosts in same and different VLANs.
+### Network Setup
 
-## Network Topology
-Four Linux hosts were connected to an OpenvSwitch device using ports eth1 to eth4. Port eth0 was left unused as required.
+* 4 Linux Hosts connected to OpenvSwitch
+* Host1 → eth1
+* Host2 → eth2
+* Host3 → eth3
+* Host4 → eth4
 
-----------------Filename: Vlan-Basics-12312149-network.png 
+---
 
+### IP Configuration
 
-Network topology showing four hosts connected to the switch.
+All hosts were configured in same subnet (192.168.10.0/24).
 
- ## IP Address Configuration
-All hosts were configured within the same subnet as follows:
+---
 
-Host	IP Address	Subnet Mask
-Host1	192.168.1.1	/24
-Host2	192.168.1.2	/24
-Host3	192.168.1.3	/24
-Host4	192.168.1.4	/24
+### VLAN Configuration
 
-Commands used:
+* VLAN 149 → Host1, Host2
+* VLAN 150 → Host3, Host4
 
-ip addr add 192.168.1.X/24 dev eth0
-ip link set eth0 up
-🔸 Initial Connectivity Test
+---
 
-Before VLAN configuration, all hosts were able to communicate with each other successfully using the ping command, confirming proper network connectivity.
+### Testing
 
- ## VLAN Configuration
+* Same VLAN → SUCCESS
+* Different VLAN → FAILED
 
-Two VLANs were configured based on the student ID:
+---
 
-VLAN 149 → Host1 and Host2
-VLAN 150 → Host3 and Host4
+## Screenshots (Task 1)
 
-Commands used on the switch:
+### 1. Network Topology
 
-ovs-vsctl set port eth1 tag=149
-ovs-vsctl set port eth2 tag=149
-ovs-vsctl set port eth3 tag=150
-ovs-vsctl set port eth4 tag=150
-## VLAN Verification
+[INSERT IMAGE: Vlan-Basics-12312149-network.png]
 
-The VLAN configuration was verified using:
+**Description:**
+This screenshot shows the GNS3 topology with four Linux hosts connected to the OpenvSwitch. Each host is connected to ports eth1 to eth4, forming the base network structure.
 
-ovs-vsctl show
+---
 
---------------- Filename: Vlan-Basics-12312149-ports.png
- Output showing VLAN tags assigned to each switch port.
+### 2. Switch VLAN Configuration
 
-## Connectivity Test After VLAN Configuration
-Communication within the same VLAN was successful:
-Host1 ↔ Host2
-Host3 ↔ Host4
-Communication between different VLANs failed:
-Host1 ↔ Host3
-Host2 ↔ Host4
+[INSERT IMAGE: Vlan-Basics-12312149-ports.png]
 
-This demonstrates that VLANs isolate broadcast domains.
+**Description:**
+This screenshot displays the output of `ovs-vsctl show`, confirming VLAN configuration. Ports eth1 and eth2 are assigned to VLAN 149, while ports eth3 and eth4 are assigned to VLAN 150.
 
-## ARP Table Observation
+---
 
-ARP tables were checked using:
+### 3. IP Address Configuration
 
-arp -n
+[INSERT IMAGE: host1_ipAddr.png]
 
-It was observed that hosts could only resolve MAC addresses of devices within the same VLAN.
+**Description:**
+This screenshot shows the IP configuration of Host1 using the `ip addr` command, confirming correct assignment of IP address.
 
- ## Conclusion (Task 1)
+---
 
-This task demonstrated how VLANs logically separate a network into multiple broadcast domains, improving network segmentation and security.
+### 4. Successful Ping (Same VLAN)
 
-## Task 2: Setup VLANs on a Router
-The aim of this task is to configure inter-VLAN routing using a Linux router and enable communication between different VLANs.
+[INSERT IMAGE: ping_host1.png]
 
-## Network Setup
+**Description:**
+This screenshot shows successful communication between hosts in the same VLAN (Host1 to Host2), verifying intra-VLAN connectivity.
 
-The previous topology was extended by adding a Linux router connected to switch port eth0.
+---
 
-----------Filename: Vlan-Router-12312149-network.png
-Network topology including router and switch.
-## IP Address Configuration
+### 5. Failed Ping (Different VLAN)
 
-Hosts were divided into two different subnets:
+[INSERT IMAGE: failedVlanPing.png]
 
-Host	VLAN	IP Address	Gateway
-Host1	149	192.168.10.2	192.168.10.1
-Host2	149	192.168.10.3	192.168.10.1
-Host3	150	192.168.20.2	192.168.20.1
-Host4	150	192.168.20.3	192.168.20.1
-## Switch Configuration
+**Description:**
+This screenshot shows failed communication between different VLANs (Host1 to Host3), confirming VLAN isolation.
 
-Access ports:
+---
 
-ovs-vsctl set port eth1 tag=149
-ovs-vsctl set port eth2 tag=149
-ovs-vsctl set port eth3 tag=150
-ovs-vsctl set port eth4 tag=150
+### 6. ARP Table
 
-Trunk port:
+[INSERT IMAGE: vlan-arpn.png]
 
-ovs-vsctl set port eth0 trunks=[]
-## outer Configuration
-Create VLAN sub-interfaces:
-ip link add link eth0 name eth0.149 type vlan id 149
-ip link add link eth0 name eth0.150 type vlan id 150
-Assign IP addresses:
-ip addr add 192.168.10.1/24 dev eth0.149
-ip addr add 192.168.20.1/24 dev eth0.150
-Enable interfaces:
-ip link set eth0 up
-ip link set eth0.149 up
-ip link set eth0.150 up
-Enable routing:
-sysctl -w net.ipv4.ip_forward=1
-## Connectivity Test
+**Description:**
+This screenshot shows the ARP table where hosts in the same VLAN have resolved MAC addresses, while hosts in different VLANs show incomplete entries.
 
-After router configuration:
+---
 
-All hosts successfully communicated across VLANs
-Inter-VLAN routing worked correctly
+## Result
 
-Example:
+VLAN segmentation was successfully implemented. Hosts in same VLAN communicated successfully, while hosts in different VLANs could not communicate.
 
-Host1 → ping 192.168.20.2 ✅
-Host3 → ping 192.168.10.2 ✅
-## VLAN Verification
-ovs-vsctl show
----------Filename: Vlan-Router-12312149-ports.png
- Output showing trunk port and VLAN configuration.
-## Conclusion (Task 2)
+---
 
-This task demonstrated how a router enables communication between VLANs using sub-interfaces and IP forwarding. It highlights the concept of inter-VLAN routing in modern networks.
+# Task 2: Setup VLANs on Router
+
+## Aim
+
+To configure inter-VLAN routing using a Linux Router.
+
+---
+
+## Procedure
+
+### Network Setup
+
+* Linux Router added
+* Router connected to switch eth0 (trunk port)
+
+---
+
+### IP Configuration
+
+* VLAN 149 → 192.168.149.0/24
+* VLAN 150 → 192.168.150.0/24
+
+---
+
+### Switch Configuration
+
+* Access ports assigned VLANs
+* eth0 configured as trunk port
+
+---
+
+### Router Configuration
+
+* Subinterfaces created: eth0.149 and eth0.150
+* IP forwarding enabled
+
+---
+
+### Testing
+
+* Inter-VLAN communication → SUCCESS
+
+---
+
+## Screenshots (Task 2)
+
+### 1. Network Topology
+
+[INSERT IMAGE: ROUTER.png]
+
+**Description:**
+This screenshot shows the updated topology including the Linux router connected to the switch via port eth0.
+
+---
+
+### 2. Switch Configuration
+
+[INSERT IMAGE: Vlan-Basics-12312149-ports.png]
+
+**Description:**
+This screenshot shows VLAN tagging and trunk configuration using `ovs-vsctl show`, confirming correct switch setup.
+
+---
+
+### 3. IP Forwarding
+
+[INSERT IMAGE: ipForward.png]
+
+**Description:**
+This screenshot confirms that IP forwarding is enabled on the router, allowing packets to be routed between VLANs.
+
+---
+
+### 4. Inter-VLAN Ping
+
+[INSERT IMAGE: HOSTpING_150.png]
+
+**Description:**
+This screenshot shows successful ping between hosts in different VLANs, confirming that inter-VLAN routing is working.
+
+---
+
+## Result
+
+Inter-VLAN routing was successfully implemented. All hosts across VLANs communicated through the router.
+
+---
+
+# Conclusion
+
+This lab demonstrated VLAN segmentation and inter-VLAN routing. VLANs isolated traffic, and the router enabled communication between VLANs.
+
+---
+
+**Note:** Insert all screenshots at the indicated positions before exporting to PDF.
