@@ -47,7 +47,6 @@ This screenshot shows the updated topology including the Linux router connected 
 
 
 ### 3. IP Forwarding
-images/week05/ipForward.png
 ![ipforward](./images/week05/ipForward.png)
 
 This screenshot confirms that IP forwarding is enabled on the router, allowing packets to be routed between VLANs.
